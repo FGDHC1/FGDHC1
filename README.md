@@ -172,8 +172,8 @@ f0c2e55 revert: see previous commit
 ╚──────────────────────────────────────────────╝
 ```
 
-[![Profile Views](https://komarev.com/ghpvc/?username=fgdhc&color=00ff9f&style=flat-square&label=visitors)](https://github.com/fgdhc)
+[![Profile Views](https://komarev.com/ghpvc/?username=fgdhc1&color=00ff9f&style=flat-square&label=visitors)](https://github.com/fgdhc1)
 &nbsp;
-[![GitHub followers](https://img.shields.io/github/followers/fgdhc?label=followers&style=social)](https://github.com/fgdhc)
+[![GitHub followers](https://img.shields.io/github/followers/fgdhc1?label=followers&style=social)](https://github.com/fgdhc1)
 
 </div>
