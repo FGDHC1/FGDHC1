@@ -3,12 +3,12 @@
 <div align="center">
 
 ```
-███████╗ ██████╗ ██████╗ ██╗  ██╗ ██████╗
-██╔════╝██╔════╝ ██╔══██╗██║  ██║██╔════╝
+     ███████╗ ██████╗ ██████╗ ██╗  ██╗ ██████╗
+     ██╔════╝██╔════╝ ██╔══██╗██║  ██║██╔════╝
 █████╗  ██║  ███╗██║  ██║███████║██║
 ██╔══╝  ██║   ██║██║  ██║██╔══██║██║
-██║     ╚██████╔╝██████╔╝██║  ██║╚██████╗
-╚═╝      ╚═════╝ ╚═════╝ ╚═╝  ╚═╝ ╚═════╝
+     ██║     ╚██████╔╝██████╔╝██║  ██║╚██████╗
+     ╚═╝      ╚═════╝ ╚═════╝ ╚═╝  ╚═╝ ╚═════╝
 ```
 
 [![Typing SVG](https://readme-typing-svg.demolab.com?font=Share+Tech+Mono&size=18&duration=3500&pause=1200&color=00FF9F&center=true&vCenter=true&width=580&lines=Homelab+Engineer+%2F+Student+%2F+CH;Raspberry+Pi+%7C+Networks+%7C+Automation;%24+ping+fgdhc.ch+--+reply+received;Self-hosted+and+self-sufficient.)](https://git.io/typing-svg)
