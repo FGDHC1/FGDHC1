@@ -10,9 +10,6 @@
      ██║     ╚██████╔╝██████╔╝██║  ██║╚██████╗
      ╚═╝      ╚═════╝ ╚═════╝ ╚═╝  ╚═╝ ╚═════╝
 ```
-
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Share+Tech+Mono&size=18&duration=3500&pause=1200&color=00FF9F&center=true&vCenter=true&width=580&lines=Homelab+Engineer+%2F+Student+%2F+CH;Raspberry+Pi+%7C+Networks+%7C+Automation;%24+ping+fgdhc.ch+--+reply+received;Self-hosted+and+self-sufficient.)](https://git.io/typing-svg)
-
 </div>
 
 ---
@@ -26,7 +23,7 @@ $ cat /etc/profile.d/fgdhc.conf
   LOCATION    : Switzerland 🇨🇭
   OCCUPATION  : Student · Tech Enthusiast
   FOCUS       : Homelab · Networks · Automation · School Projects
-  PHILOSOPHY  : I dont know? 
+  PHILOSOPHY  : Hell Nawwww
 
 $ uptime
 > System stable. No critical incidents. Yet.
@@ -54,20 +51,6 @@ $ ping fgdhc.ch
 
 ---
 
-## `~/stats` — Metrics
-
-<div align="center">
-
-<img height="155em" src="https://github-readme-stats.vercel.app/api?username=fgdhc&show_icons=true&include_all_commits=true&count_private=true&hide_border=true&bg_color=0d0d0d&title_color=00FF9F&icon_color=00FF9F&text_color=c9d1d9"/>
-<img height="155em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=fgdhc&layout=compact&hide_border=true&bg_color=0d0d0d&title_color=00FF9F&text_color=c9d1d9"/>
-
-</div>
-
-<div align="center">
-
-[![GitHub Streak](https://streak-stats.demolab.com?user=fgdhc&theme=dark&hide_border=true&background=0D0D0D&ring=00FF9F&fire=00C97A&currStreakLabel=00FF9F&sideLabels=555555&dates=555555)](https://git.io/streak-stats)
-
-</div>
 
 ---
 
@@ -81,7 +64,7 @@ $ ping fgdhc.ch
 │  rpi-automation         Raspberry Pi scripts & bots  [ACTIVE]   │
 │  network-configs        vNet / firewall configs      [PRIVATE]  │
 │  school-projects        Various school assignments   [MIXED]    │
-│  [REDACTED]             Something in progress        [WIP]      │
+│  [REDACTED]             Something in progress        [NULL]     │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
