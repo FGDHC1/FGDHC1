@@ -24,6 +24,12 @@ $ cat /etc/profile.d/fgdhc.conf
   FOCUS       : Homelab · Networks · Automation · School Projects
   PHILOSOPHY  : Hell Nawwww
 
+$ cat ~/.languages
+  DE  🇩🇪  Deutsch          ████████████  native
+  CH  🇨🇭  Schweizerdeutsch ████████████  native
+  EN  🇬🇧  English          ██████████░░  fluent
+  FR  🇫🇷  Français         ████░░░░░░░░  basics
+
 $ uptime
 > System stable. No critical incidents. Yet.
 
@@ -33,22 +39,55 @@ $ ping fgdhc.ch
 
 ---
 
-## `~/stack` — Tools of the Trade
+## `~/music` — Currently Playing
 
 <div align="center">
 
-![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
-![Raspberry Pi](https://img.shields.io/badge/Raspberry%20Pi-A22846?style=for-the-badge&logo=Raspberry%20Pi&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white)
-![UniFi](https://img.shields.io/badge/UniFi-0559C9?style=for-the-badge&logo=ubiquiti&logoColor=white)
-![Kali](https://img.shields.io/badge/Kali_Linux-557C94?style=for-the-badge&logo=kali-linux&logoColor=white)
-![Python](https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=black)
-![Bash](https://img.shields.io/badge/Bash-4EAA25?style=for-the-badge&logo=GNU%20Bash&logoColor=white)
-![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
+[![spotify-github-profile](https://spotify-github-profile.kittinanx.com/api/view?uid=qm1r7xvymijnabnlwux03rl6u&cover_image=true&theme=default&show_offline=true&background_color=121212&interchange=true&profanity=false&hide_remaster=false&bar_color_cover=true)](https://spotify-github-profile.kittinanx.com/api/view?uid=qm1r7xvymijnabnlwux03rl6u&redirect=true)
 
 </div>
 
 ---
+## `~/stack` — Tools of the Trade
+
+<div align="center">
+
+### OS & Platform
+![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
+![macOS](https://img.shields.io/badge/macOS-000000?style=for-the-badge&logo=apple&logoColor=white)
+![CachyOS](https://img.shields.io/badge/CachyOS-0068FF?style=for-the-badge&logo=archlinux&logoColor=white)
+![Windows](https://custom-icon-badges.demolab.com/badge/Windows-0078D6?style=for-the-badge&logo=windows11&logoColor=white)
+![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)
+![Ubuntu Server](https://img.shields.io/badge/Ubuntu_Server-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)
+![Kali](https://img.shields.io/badge/Kali_Linux-268BEE?style=for-the-badge&logo=kali-linux&logoColor=white)
+![Raspberry Pi](https://img.shields.io/badge/Raspberry%20Pi-A22846?style=for-the-badge&logo=Raspberry%20Pi&logoColor=white)
+![rEFInd](https://img.shields.io/badge/rEFInd-444444?style=for-the-badge&logoColor=white)
+
+### Tools & Infrastructure
+![Docker](https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white)
+![Traefik](https://img.shields.io/badge/Traefik-24A1C1?style=for-the-badge&logo=traefikproxy&logoColor=white)
+![Portainer](https://img.shields.io/badge/Portainer-13BEF9?style=for-the-badge&logo=portainer&logoColor=white)
+![WireGuard](https://img.shields.io/badge/WireGuard-88171A?style=for-the-badge&logo=wireguard&logoColor=white)
+![Nginx](https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=nginx&logoColor=white)
+![UniFi](https://img.shields.io/badge/UniFi-0559C9?style=for-the-badge&logo=ubiquiti&logoColor=white)
+![Jellyfin](https://img.shields.io/badge/Jellyfin-00A4DC?style=for-the-badge&logo=jellyfin&logoColor=white)
+![Sonarr](https://img.shields.io/badge/Sonarr-35C5F4?style=for-the-badge&logo=sonarr&logoColor=white)
+![Radarr](https://img.shields.io/badge/Radarr-FFC230?style=for-the-badge&logo=radarr&logoColor=black)
+![Prowlarr](https://img.shields.io/badge/Prowlarr-FF6600?style=for-the-badge&logo=prowlarr&logoColor=white)
+![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
+
+### Languages
+![Python](https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=black)
+![Bash](https://img.shields.io/badge/Bash-4EAA25?style=for-the-badge&logo=GNU%20Bash&logoColor=white)
+![C++](https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=cplusplus&logoColor=white)
+![YAML](https://img.shields.io/badge/YAML-CB171E?style=for-the-badge&logo=yaml&logoColor=white)
+![Dockerfile](https://img.shields.io/badge/Dockerfile-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![CSS](https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![HTML](https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![Markdown](https://img.shields.io/badge/Markdown-000000?style=for-the-badge&logo=markdown&logoColor=white)
+![SQL](https://img.shields.io/badge/SQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
+
+</div>
 
 
 ---
@@ -148,7 +187,7 @@ f0c2e55 revert: see previous commit
 
 ```
 ╔──────────────────────────────────────────────╗
-│  "To get rid of every Bug amd Problem.       │
+│  "To get rid of every Bug and Problem.       │
 |   Just type sudo rm -rf /"                   │
 │                            — FGDHC, probably │
 ╚──────────────────────────────────────────────╝
