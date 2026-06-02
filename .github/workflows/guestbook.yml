@@ -235,8 +235,10 @@ jobs:
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git pull --rebase
           git add README.md guestbook.json guestbook-map.svg
+          git stash
+          git pull --rebase
+          git stash pop
           git commit -m '✍️ guestbook update' || echo "Nothing to commit"
           git push
         env:
