@@ -89,6 +89,19 @@ $ ping fgdhc.ch
 
 </div>
 
+---
+
+## `~/guestbook`
+
+<div align="center">
+
+<!-- Guestbook -->
+<!-- /Guestbook -->
+
+
+[![Add an Entry](https://img.shields.io/badge/✍️_Add_an_Entry_to_the-Guestbook-238636?style=for-the-badge)](https://github.com/FGDHC1/FGDHC1/issues/1)
+</div>
+
 
 ---
 
