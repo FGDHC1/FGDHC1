@@ -23,18 +23,18 @@ jobs:
           script: |
             const fs = require('fs');
 
-            // ── Hilfsfunktionen ──────────────────────────────────────────────
-
             function formatDate(dateStr) {
               const d = new Date(dateStr);
               const pad = n => String(n).padStart(2, '0');
               return `${pad(d.getDate())}.${pad(d.getMonth()+1)}.${d.getFullYear()}, ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
             }
+
+            function getFlag(location) {
               const loc = location.toLowerCase();
               const map = {
                 'switzerland': '🇨🇭', 'ch': '🇨🇭',
                 'germany': '🇩🇪', 'deutschland': '🇩🇪', 'de': '🇩🇪',
-                'austria': '🇦🇹', 'österreich': '🇦🇹', 'at': '🇦🇹',
+                'austria': '🇦🇹', 'oesterreich': '🇦🇹', 'at': '🇦🇹',
                 'united states': '🇺🇸', 'usa': '🇺🇸', 'us': '🇺🇸',
                 'united kingdom': '🇬🇧', 'uk': '🇬🇧', 'gb': '🇬🇧',
                 'france': '🇫🇷', 'frankreich': '🇫🇷', 'fr': '🇫🇷',
@@ -71,7 +71,7 @@ jobs:
                   return { lat: parseFloat(data[0].lat), lon: parseFloat(data[0].lon) };
                 }
               } catch (e) {
-                console.log(`Geocoding fehlgeschlagen für "${location}": ${e.message}`);
+                console.log(`Geocoding fehlgeschlagen fuer "${location}": ${e.message}`);
               }
               return { lat: null, lon: null };
             }
@@ -80,7 +80,6 @@ jobs:
               const withCoords = entries.filter(e => e.lat !== null && e.lon !== null);
               const W = 860, H = 440;
 
-              // Echtes GeoJSON laden
               const geoRes = await fetch('https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson');
               const world = await geoRes.json();
 
@@ -116,19 +115,19 @@ jobs:
                 return `<g>
                   <circle cx="${x}" cy="${y}" r="5" fill="#238636" stroke="#2ea043" stroke-width="1.5" opacity="0.9"/>
                   <circle cx="${x}" cy="${y}" r="10" fill="#238636" opacity="0.2"/>
-                  <title>@${e.username}${e.location ? ' · ' + e.location : ''}</title>
+                  <title>@${e.username}${e.location ? ' - ' + e.location : ''}</title>
                 </g>`;
               }).join('\n');
 
               const count = withCoords.length;
 
               return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">
-              <rect width="${W}" height="${H}" fill="#0d1117" rx="8"/>
-              <line x1="0" y1="${H/2}" x2="${W}" y2="${H/2}" stroke="#21262d" stroke-width="0.8" stroke-dasharray="4,4"/>
-            ${landPaths}
-            ${markers}
-              <text x="12" y="${H - 10}" fill="#8b949e" font-size="11" font-family="sans-serif">${count} visitor${count !== 1 ? 's' : ''} from around the world</text>
-            </svg>`;
+                <rect width="${W}" height="${H}" fill="#0d1117" rx="8"/>
+                <line x1="0" y1="${H/2}" x2="${W}" y2="${H/2}" stroke="#21262d" stroke-width="0.8" stroke-dasharray="4,4"/>
+                ${landPaths}
+                ${markers}
+                <text x="12" y="${H - 10}" fill="#8b949e" font-size="11" font-family="sans-serif">${count} visitor${count !== 1 ? 's' : ''} from around the world</text>
+              </svg>`;
             }
 
             function generateTable(entries) {
@@ -147,8 +146,7 @@ jobs:
               return latestLine + header + rows + '\n';
             }
 
-            // ── Kommentare holen ─────────────────────────────────────────────
-
+            // Kommentare holen
             const query = `query($owner:String!, $name:String!, $issue_number:Int!) {
               repository(owner:$owner, name:$name) {
                 issue(number:$issue_number) {
@@ -177,17 +175,18 @@ jobs:
 
             const comments = result.repository.issue.comments.nodes;
 
-            // ── guestbook.json laden / updaten ───────────────────────────────
-
+            // guestbook.json laden
             let stored = [];
             if (fs.existsSync('guestbook.json')) {
               const raw = fs.readFileSync('guestbook.json', 'utf8').trim();
-              if (raw) stored = JSON.parse(raw);
+              if (raw && raw !== '[]') {
+                try { stored = JSON.parse(raw); } catch(e) { stored = []; }
+              }
             }
 
             const storedMap = Object.fromEntries(stored.map(e => [e.username, e]));
 
-            // Neue Einträge geocoden
+            // Eintraege updaten
             for (const comment of comments) {
               const username = comment.author.login;
               const location = comment.author.location || null;
@@ -195,9 +194,7 @@ jobs:
 
               if (!existing || existing.location !== location) {
                 let coords = { lat: null, lon: null };
-                if (location) {
-                  coords = await geocode(location);
-                }
+                if (location) coords = await geocode(location);
                 storedMap[username] = {
                   username,
                   message: comment.bodyText.trim(),
@@ -207,13 +204,12 @@ jobs:
                   lon: coords.lon,
                 };
               } else {
-                // Nachricht updaten falls editiert
                 storedMap[username].message = comment.bodyText.trim();
-                storedMap[username].date = new Date(comment.updatedAt).toLocaleString('de-CH');
+                storedMap[username].date = formatDate(comment.updatedAt);
               }
             }
 
-            // Gelöschte Kommentare entfernen
+            // Geloeschte Kommentare entfernen
             const activeUsernames = new Set(comments.map(c => c.author.login));
             const entries = Object.values(storedMap).filter(e => activeUsernames.has(e.username));
 
@@ -221,18 +217,14 @@ jobs:
             entries.sort((a, b) => new Date(b.date) - new Date(a.date));
 
             fs.writeFileSync('guestbook.json', JSON.stringify(entries, null, 2), 'utf8');
-
-            // ── SVG generieren ───────────────────────────────────────────────
-
             fs.writeFileSync('guestbook-map.svg', await generateMapSVG(entries), 'utf8');
 
-            // ── README updaten ───────────────────────────────────────────────
-
+            // README updaten
             let readme = fs.readFileSync('README.md', 'utf8');
             const newContent = generateTable(entries);
             readme = readme.replace(
-              /(?<=<!-- Guestbook -->\n)[\s\S]*?(?=<!-- \/Guestbook -->)/,
-              newContent
+              /<!-- Guestbook -->\n[\s\S]*?<!-- \/Guestbook -->/,
+              `<!-- Guestbook -->\n${newContent}<!-- /Guestbook -->`
             );
             fs.writeFileSync('README.md', readme, 'utf8');
 
