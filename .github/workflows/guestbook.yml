@@ -25,7 +25,11 @@ jobs:
 
             // ── Hilfsfunktionen ──────────────────────────────────────────────
 
-            function getFlag(location) {
+            function formatDate(dateStr) {
+              const d = new Date(dateStr);
+              const pad = n => String(n).padStart(2, '0');
+              return `${pad(d.getDate())}.${pad(d.getMonth()+1)}.${d.getFullYear()}, ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+            }
               const loc = location.toLowerCase();
               const map = {
                 'switzerland': '🇨🇭', 'ch': '🇨🇭',
@@ -177,7 +181,8 @@ jobs:
 
             let stored = [];
             if (fs.existsSync('guestbook.json')) {
-              stored = JSON.parse(fs.readFileSync('guestbook.json', 'utf8'));
+              const raw = fs.readFileSync('guestbook.json', 'utf8').trim();
+              if (raw) stored = JSON.parse(raw);
             }
 
             const storedMap = Object.fromEntries(stored.map(e => [e.username, e]));
@@ -196,7 +201,7 @@ jobs:
                 storedMap[username] = {
                   username,
                   message: comment.bodyText.trim(),
-                  date: new Date(comment.updatedAt).toLocaleString('de-CH'),
+                  date: formatDate(comment.updatedAt),
                   location,
                   lat: coords.lat,
                   lon: coords.lon,
@@ -237,7 +242,7 @@ jobs:
           git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add README.md guestbook.json guestbook-map.svg
           git stash
-          git pull --rebase
+          git pull --rebase origin main
           git stash pop
           git commit -m '✍️ guestbook update' || echo "Nothing to commit"
           git push
