@@ -219,7 +219,7 @@ jobs:
 
             // ── SVG generieren ───────────────────────────────────────────────
 
-            fs.writeFileSync('guestbook-map.svg', generateMapSVG(entries), 'utf8');
+            fs.writeFileSync('guestbook-map.svg', await generateMapSVG(entries), 'utf8');
 
             // ── README updaten ───────────────────────────────────────────────
 
