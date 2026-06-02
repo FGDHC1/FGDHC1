@@ -237,6 +237,7 @@ jobs:
           git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add README.md guestbook.json guestbook-map.svg
           git commit -m '✍️ guestbook update' || echo "Nothing to commit"
+          git pull --rebase
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
