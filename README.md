@@ -95,6 +95,7 @@ $ ping fgdhc.ch
 
 <div align="center">
 
+### Guestbook List
 <!-- Guestbook -->
 > 👋 Last signed by [@FGDHC1](https://github.com/FGDHC1) on 02.06.2026, 11:29:10
 
@@ -105,6 +106,10 @@ $ ping fgdhc.ch
 
 
 [![Add an Entry](https://img.shields.io/badge/✍️_Add_an_Entry_to_the-Guestbook-238636?style=for-the-badge)](https://github.com/FGDHC1/FGDHC1/issues/1)
+
+### Guestbook Map
+
+![Guestbook-map](guestbook-map.svg)
 </div>
 
 
