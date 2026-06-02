@@ -97,7 +97,11 @@ $ ping fgdhc.ch
 
 ### Guestbook List
 <!-- Guestbook -->
-_No entries yet. Be the first to sign!_
+> 👋 Last signed by [@FGDHC1](https://github.com/FGDHC1) on 02.06.2026, 12:40:51
+
+| | Name | Date | Message |
+|---|---|---|---|
+| <img src="https://avatars.githubusercontent.com/FGDHC1" width="20" height="20"/> | [@FGDHC1](https://github.com/FGDHC1) 🇺🇸 | 02.06.2026, 12:40:51 | Teeeest |
 <!-- /Guestbook -->
 
 
