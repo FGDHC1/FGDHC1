@@ -96,6 +96,11 @@ $ ping fgdhc.ch
 <div align="center">
 
 <!-- Guestbook -->
+> 👋 Last signed by [@FGDHC1](https://github.com/FGDHC1) on 2.6.2026, 09:08:23
+
+| | Name | Date | Message |
+|---|---|---|---|
+| <img src="https://avatars.githubusercontent.com/FGDHC1" width="20" height="20"/> | [@FGDHC1](https://github.com/FGDHC1) 🇨🇭 | 2.6.2026, 09:08:23 | Hey Hey Heyyyy ✌🏻 |
 <!-- /Guestbook -->
 
 
