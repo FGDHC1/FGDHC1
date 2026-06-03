@@ -97,6 +97,12 @@ $ ping fgdhc.ch
 
 ### Guestbook List
 <!-- Guestbook -->
+> 👋 Last signed by [@FGDHC1](https://github.com/FGDHC1) on 03.06.2026, 18:21:10
+
+| | Name | Date | Message |
+|---|---|---|---|
+| <img src="https://avatars.githubusercontent.com/FGDHC1" width="20" height="20"/> | [@FGDHC1](https://github.com/FGDHC1) 🇨🇭 | 03.06.2026, 18:21:10 | Balls |
+| <img src="https://avatars.githubusercontent.com/Soluk-GBS" width="20" height="20"/> | [@Soluk-GBS](https://github.com/Soluk-GBS) 🇨🇭 | 02.06.2026, 19:21:53 | Hello, im from switzerland |
 <!-- /Guestbook -->
 
 
