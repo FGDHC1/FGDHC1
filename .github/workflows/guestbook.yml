@@ -137,7 +137,7 @@ jobs:
             function generateTable(entries) {
               if (entries.length === 0) return '_No entries yet. Be the first to sign!_\n';
 
-              const latest = entries[0];
+              const latest = [...entries].sort((a, b) => new Date(b.date) - new Date(a.date))[0];
               const latestLine = `> 👋 Last signed by [@${latest.username}](https://github.com/${latest.username}) on ${latest.date}\n\n`;
               const header = `| | Name | Date | Message |\n|---|---|---|---|\n`;
               const rows = entries.map(e => {
@@ -218,7 +218,7 @@ jobs:
             const entries = Object.values(storedMap).filter(e => activeUsernames.has(e.username));
 
             // Nach Datum sortieren (neueste zuerst)
-            entries.sort((a, b) => new Date(b.date) - new Date(a.date));
+            entries.sort((a, b) => new Date(a.date) - new Date(b.date));
 
             fs.writeFileSync('guestbook.json', JSON.stringify(entries, null, 2), 'utf8');
             fs.writeFileSync('guestbook-map.svg', await generateMapSVG(entries), 'utf8');
