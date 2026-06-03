@@ -97,15 +97,6 @@ $ ping fgdhc.ch
 
 ### Guestbook List
 <!-- Guestbook -->
-> 👋 Last signed by [@Soluk-GBS](https://github.com/Soluk-GBS) on 02.06.2026, 19:21:53
-
-| | Name | Date | Message |
-|---|---|---|---|
-<<<<<<< Updated upstream
-| <img src="https://avatars.githubusercontent.com/Soluk-GBS" width="20" height="20"/> | [@Soluk-GBS](https://github.com/Soluk-GBS) | 02.06.2026, 19:21:53 | Hello, im from switzerland |
-=======
-| <img src="https://avatars.githubusercontent.com/Soluk-GBS" width="20" height="20"/> | [@Soluk-GBS](https://github.com/Soluk-GBS) 🇨🇭 | 02.06.2026, 19:21:53 | Hello, im from switzerland |
->>>>>>> Stashed changes
 <!-- /Guestbook -->
 
 
