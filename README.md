@@ -97,12 +97,13 @@ $ ping fgdhc.ch
 
 ### Guestbook List
 <!-- Guestbook -->
-> 👋 Last signed by [@deonramadani](https://github.com/deonramadani) on 09.06.2026, 11:37:45
+> 👋 Last signed by [@EpicAlpaca55](https://github.com/EpicAlpaca55) on 09.06.2026, 17:53:05
 
 | | Name | Date | Message |
 |---|---|---|---|
 | <img src="https://avatars.githubusercontent.com/Soluk-GBS" width="20" height="20"/> | [@Soluk-GBS](https://github.com/Soluk-GBS) 🇨🇭 | 02.06.2026, 19:21:53 | Hello, im from switzerland |
 | <img src="https://avatars.githubusercontent.com/deonramadani" width="20" height="20"/> | [@deonramadani](https://github.com/deonramadani) 🇨🇭 | 09.06.2026, 11:37:45 | Hello Guys, i just wanted to say that our dear friend FGDHC1 is doing so-called "Arbeitszeitbetrug" while working! |
+| <img src="https://avatars.githubusercontent.com/EpicAlpaca55" width="20" height="20"/> | [@EpicAlpaca55](https://github.com/EpicAlpaca55) | 09.06.2026, 17:53:05 | Well, besides stealing the idea for a guest book from a friend and not having very good taste in music, he is alright. It als |
 <!-- /Guestbook -->
 
 
