@@ -244,7 +244,7 @@ jobs:
               const latestLine = `> 👋 Last signed by [@${latest.username}](https://github.com/${latest.username}) on ${latest.date}\n\n`;
               const header = `| | Name | Date | Message |\n|---|---|---|---|\n`;
               const rows = entries.map(e => {
-                const avatar = `<img src="https://avatars.githubusercontent.com/${e.username}" width="20" height="20"/>`;
+                const avatar = `<img src="https://avatars.githubusercontent.com/${e.username}" width="60" height="60"/>`;
                 const flag = e.location ? ' ' + getFlag(e.location) : '';
                 const msg = (e.message || '').replace(/\|/g, '\\|').replace(/(\r\n|\r|\n)/g, ' ').slice(0, 125);
                 return `| ${avatar} | [@${e.username}](https://github.com/${e.username})${flag} | ${e.date} | ${msg} |`;
