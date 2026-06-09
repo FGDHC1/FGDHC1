@@ -102,7 +102,7 @@ $ ping fgdhc.ch
 | | Name | Date | Message |
 |---|---|---|---|
 | <img src="https://avatars.githubusercontent.com/Soluk-GBS" width="20" height="20"/> | [@Soluk-GBS](https://github.com/Soluk-GBS) 🇨🇭 | 02.06.2026, 19:21:53 | Hello, im from switzerland |
-| <img src="https://avatars.githubusercontent.com/deonramadani" width="20" height="20"/> | [@deonramadani](https://github.com/deonramadani) | 09.06.2026, 11:37:45 | Hello Guys, i just wanted to say that our dear friend FGDHC1 is doing so-called "Arbeitszeitbetrug" while working! |
+| <img src="https://avatars.githubusercontent.com/deonramadani" width="20" height="20"/> | [@deonramadani](https://github.com/deonramadani) 🇨🇭 | 09.06.2026, 11:37:45 | Hello Guys, i just wanted to say that our dear friend FGDHC1 is doing so-called "Arbeitszeitbetrug" while working! |
 <!-- /Guestbook -->
 
 
