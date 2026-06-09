@@ -246,7 +246,7 @@ jobs:
               const rows = entries.map(e => {
                 const avatar = `<img src="https://avatars.githubusercontent.com/${e.username}" width="60" height="60"/>`;
                 const flag = e.location ? ' ' + getFlag(e.location) : '';
-                const msg = (e.message || '').replace(/\|/g, '\\|').replace(/(\r\n|\r|\n)/g, ' ').slice(0, 125);
+                const msg = (e.message || '').replace(/\|/g, '\\|').replace(/(\r\n|\r|\n)/g, ' ');
                 return `| ${avatar} | [@${e.username}](https://github.com/${e.username})${flag} | ${e.date} | ${msg} |`;
               }).join('\n');
 
