@@ -34,36 +34,139 @@ jobs:
             }
 
             function getFlag(location) {
-              const loc = location.toLowerCase();
-              const map = {
-                'switzerland': '🇨🇭', 'ch': '🇨🇭',
-                'germany': '🇩🇪', 'deutschland': '🇩🇪', 'de': '🇩🇪',
-                'austria': '🇦🇹', 'oesterreich': '🇦🇹', 'at': '🇦🇹',
-                'united states': '🇺🇸', 'usa': '🇺🇸', 'us': '🇺🇸',
-                'united kingdom': '🇬🇧', 'uk': '🇬🇧', 'gb': '🇬🇧',
-                'france': '🇫🇷', 'frankreich': '🇫🇷', 'fr': '🇫🇷',
-                'netherlands': '🇳🇱', 'nl': '🇳🇱',
-                'canada': '🇨🇦', 'ca': '🇨🇦',
-                'australia': '🇦🇺', 'au': '🇦🇺',
-                'japan': '🇯🇵', 'jp': '🇯🇵',
-                'india': '🇮🇳', 'in': '🇮🇳',
-                'brazil': '🇧🇷', 'brasil': '🇧🇷', 'br': '🇧🇷',
-                'sweden': '🇸🇪', 'se': '🇸🇪',
-                'norway': '🇳🇴', 'no': '🇳🇴',
-                'denmark': '🇩🇰', 'dk': '🇩🇰',
-                'finland': '🇫🇮', 'fi': '🇫🇮',
-                'poland': '🇵🇱', 'pl': '🇵🇱',
-                'italy': '🇮🇹', 'italien': '🇮🇹', 'it': '🇮🇹',
-                'spain': '🇪🇸', 'spanien': '🇪🇸', 'es': '🇪🇸',
-                'portugal': '🇵🇹', 'pt': '🇵🇹',
-                'russia': '🇷🇺', 'ru': '🇷🇺',
-                'china': '🇨🇳', 'cn': '🇨🇳',
-                'south korea': '🇰🇷', 'korea': '🇰🇷', 'kr': '🇰🇷',
+              if (!location) return '';
+              
+              // ISO 3166-1 Alpha-2 Code aus der Location extrahieren
+              // Zuerst: direkt 2-Buchstaben-Code am Ende oder allein
+              const twoLetterMatch = location.trim().match(/\b([A-Za-z]{2})\b$/);
+              
+              // Country name → ISO code mapping (alle UN-anerkannten Länder + häufige Varianten)
+              const nameToCode = {
+                // A
+                'afghanistan': 'AF', 'albania': 'AL', 'algeria': 'DZ', 'andorra': 'AD',
+                'angola': 'AO', 'argentina': 'AR', 'armenia': 'AM', 'australia': 'AU',
+                'austria': 'AT', 'azerbaijan': 'AZ', 'österreich': 'AT',
+                // B
+                'bahamas': 'BS', 'bahrain': 'BH', 'bangladesh': 'BD', 'barbados': 'BB',
+                'belarus': 'BY', 'belgium': 'BE', 'belgien': 'BE', 'belize': 'BZ',
+                'benin': 'BJ', 'bhutan': 'BT', 'bolivia': 'BO', 'bosnia': 'BA',
+                'botswana': 'BW', 'brazil': 'BR', 'brasil': 'BR', 'brunei': 'BN',
+                'bulgaria': 'BG', 'burkina faso': 'BF', 'burundi': 'BI',
+                // C
+                'cambodia': 'KH', 'cameroon': 'CM', 'canada': 'CA', 'cape verde': 'CV',
+                'central african republic': 'CF', 'chad': 'TD', 'chile': 'CL',
+                'china': 'CN', 'colombia': 'CO', 'comoros': 'KM', 'congo': 'CG',
+                'costa rica': 'CR', 'croatia': 'HR', 'cuba': 'CU', 'cyprus': 'CY',
+                'czech republic': 'CZ', 'czechia': 'CZ', 'tschechien': 'CZ',
+                // D
+                'denmark': 'DK', 'dänemark': 'DK', 'djibouti': 'DJ', 'dominica': 'DM',
+                'dominican republic': 'DO',
+                // E
+                'ecuador': 'EC', 'egypt': 'EG', 'ägypten': 'EG', 'el salvador': 'SV',
+                'equatorial guinea': 'GQ', 'eritrea': 'ER', 'estonia': 'EE',
+                'eswatini': 'SZ', 'ethiopia': 'ET',
+                // F
+                'fiji': 'FJ', 'finland': 'FI', 'finnland': 'FI', 'france': 'FR',
+                'frankreich': 'FR',
+                // G
+                'gabon': 'GA', 'gambia': 'GM', 'georgia': 'GE', 'germany': 'DE',
+                'deutschland': 'DE', 'ghana': 'GH', 'greece': 'GR', 'griechenland': 'GR',
+                'grenada': 'GD', 'guatemala': 'GT', 'guinea': 'GN',
+                'guinea-bissau': 'GW', 'guyana': 'GY',
+                // H
+                'haiti': 'HT', 'honduras': 'HN', 'hungary': 'HU', 'ungarn': 'HU',
+                // I
+                'iceland': 'IS', 'island': 'IS', 'india': 'IN', 'indonesia': 'ID',
+                'iran': 'IR', 'iraq': 'IQ', 'ireland': 'IE', 'irland': 'IE',
+                'israel': 'IL', 'italy': 'IT', 'italien': 'IT', 'ivory coast': 'CI',
+                "cote d'ivoire": 'CI',
+                // J
+                'jamaica': 'JM', 'japan': 'JP', 'jordan': 'JO',
+                // K
+                'kazakhstan': 'KZ', 'kenya': 'KE', 'kiribati': 'KI', 'kuwait': 'KW',
+                'kyrgyzstan': 'KG',
+                // L
+                'laos': 'LA', 'latvia': 'LV', 'lebanon': 'LB', 'lesotho': 'LS',
+                'liberia': 'LR', 'libya': 'LY', 'liechtenstein': 'LI', 'lithuania': 'LT',
+                'luxembourg': 'LU', 'luxemburg': 'LU',
+                // M
+                'madagascar': 'MG', 'malawi': 'MW', 'malaysia': 'MY', 'maldives': 'MV',
+                'mali': 'ML', 'malta': 'MT', 'marshall islands': 'MH', 'mauritania': 'MR',
+                'mauritius': 'MU', 'mexico': 'MX', 'mexiko': 'MX', 'micronesia': 'FM',
+                'moldova': 'MD', 'monaco': 'MC', 'mongolia': 'MN', 'montenegro': 'ME',
+                'morocco': 'MA', 'marokko': 'MA', 'mozambique': 'MZ', 'myanmar': 'MM',
+                // N
+                'namibia': 'NA', 'nauru': 'NR', 'nepal': 'NP', 'netherlands': 'NL',
+                'niederlande': 'NL', 'new zealand': 'NZ', 'neuseeland': 'NZ',
+                'nicaragua': 'NI', 'niger': 'NE', 'nigeria': 'NG', 'north korea': 'KP',
+                'north macedonia': 'MK', 'norway': 'NO', 'norwegen': 'NO',
+                // O
+                'oman': 'OM',
+                // P
+                'pakistan': 'PK', 'palau': 'PW', 'palestine': 'PS', 'panama': 'PA',
+                'papua new guinea': 'PG', 'paraguay': 'PY', 'peru': 'PE',
+                'philippines': 'PH', 'poland': 'PL', 'polen': 'PL', 'portugal': 'PT',
+                // Q
+                'qatar': 'QA',
+                // R
+                'romania': 'RO', 'rumänien': 'RO', 'russia': 'RU', 'russland': 'RU',
+                'rwanda': 'RW',
+                // S
+                'saint kitts and nevis': 'KN', 'saint lucia': 'LC',
+                'saint vincent': 'VC', 'samoa': 'WS', 'san marino': 'SM',
+                'sao tome and principe': 'ST', 'saudi arabia': 'SA',
+                'saudi-arabien': 'SA', 'senegal': 'SN', 'serbia': 'RS', 'serbien': 'RS',
+                'seychelles': 'SC', 'sierra leone': 'SL', 'singapore': 'SG',
+                'singapur': 'SG', 'slovakia': 'SK', 'slowakei': 'SK',
+                'slovenia': 'SI', 'slowenien': 'SI', 'solomon islands': 'SB',
+                'somalia': 'SO', 'south africa': 'ZA', 'südafrika': 'ZA',
+                'south korea': 'KR', 'korea': 'KR', 'south sudan': 'SS', 'spain': 'ES',
+                'spanien': 'ES', 'sri lanka': 'LK', 'sudan': 'SD', 'suriname': 'SR',
+                'sweden': 'SE', 'schweden': 'SE', 'switzerland': 'CH', 'schweiz': 'CH',
+                'syria': 'SY',
+                // T
+                'taiwan': 'TW', 'tajikistan': 'TJ', 'tanzania': 'TZ', 'thailand': 'TH',
+                'timor-leste': 'TL', 'togo': 'TG', 'tonga': 'TO',
+                'trinidad and tobago': 'TT', 'tunisia': 'TN', 'turkey': 'TR',
+                'türkei': 'TR', 'türkiye': 'TR', 'turkmenistan': 'TM', 'tuvalu': 'TV',
+                // U
+                'uganda': 'UG', 'ukraine': 'UA', 'united arab emirates': 'AE',
+                'uae': 'AE', 'united kingdom': 'GB', 'uk': 'GB', 'england': 'GB',
+                'scotland': 'GB', 'wales': 'GB', 'united states': 'US', 'usa': 'US',
+                'uruguay': 'UY', 'uzbekistan': 'UZ',
+                // V
+                'vanuatu': 'VU', 'vatican': 'VA', 'vatikan': 'VA', 'venezuela': 'VE',
+                'vietnam': 'VN',
+                // Y
+                'yemen': 'YE',
+                // Z
+                'zambia': 'ZM', 'zimbabwe': 'ZW',
               };
-              for (const [key, flag] of Object.entries(map)) {
-                if (loc.includes(key)) return flag;
+            
+              const loc = location.toLowerCase().trim();
+            
+              // 1. Direkt im nameToCode nachschlagen (substring match)
+              for (const [name, code] of Object.entries(nameToCode)) {
+                if (loc.includes(name)) return codeToFlag(code);
               }
+            
+              // 2. Fallback: 2-Buchstaben ISO-Code direkt konvertieren
+              if (twoLetterMatch) {
+                const code = twoLetterMatch[1].toUpperCase();
+                // Nur wenn es ein plausibler Ländercode ist (nicht "St" aus "St. Gallen" etc.)
+                if (code.match(/^[A-Z]{2}$/) && !['ST', 'DR', 'MR', 'MS'].includes(code)) {
+                  return codeToFlag(code);
+                }
+              }
+            
               return '';
+            }
+            
+            function codeToFlag(code) {
+              // Regional Indicator Symbols: A=0x1F1E6, Z=0x1F1FF
+              return [...code.toUpperCase()].map(c =>
+                String.fromCodePoint(0x1F1E6 - 65 + c.charCodeAt(0))
+              ).join('');
             }
 
             async function geocode(location) {
