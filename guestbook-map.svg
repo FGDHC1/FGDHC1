@@ -188,5 +188,10 @@
       <circle cx="449.7" cy="105.6" r="10" fill="#238636" opacity="0.2"/>
       <title>@deonramadani - Schweiz </title>
     </g>
-    <text x="12" y="430" fill="#8b949e" font-size="11" font-family="sans-serif">2 visitors from around the world</text>
+<g>
+      <circle cx="138.8" cy="128.7" r="5" fill="#238636" stroke="#2ea043" stroke-width="1.5" opacity="0.9"/>
+      <circle cx="138.8" cy="128.7" r="10" fill="#238636" opacity="0.2"/>
+      <title>@FGDHC1 - St. José, USA</title>
+    </g>
+    <text x="12" y="430" fill="#8b949e" font-size="11" font-family="sans-serif">3 visitors from around the world</text>
   </svg>
