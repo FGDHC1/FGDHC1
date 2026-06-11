@@ -58,6 +58,8 @@ jobs:
             // 3. Gibberish check: Binär oder Morse
             const binaryPattern = /^[\s01]+$/;
             const morsePattern = /^[\s.\-\/]+$/;
+            const base64Pattern = /^[A-Za-z0-9+/]+=*$/;
+            const hexPattern = /^[0-9a-fA-F\s]+$/;
             const strippedBody = body.trim();
 
             if (!reason && binaryPattern.test(strippedBody) && strippedBody.length > 5) {
@@ -66,6 +68,13 @@ jobs:
             if (!reason && morsePattern.test(strippedBody) && strippedBody.length > 5) {
               reason = 'morse';
             }
+            if (!reason && base64Pattern.test(strippedBody.replace(/\s/g, '')) && strippedBody.length > 20) {
+              reason = 'base64';
+            }
+
+            if (!reason && hexPattern.test(strippedBody) && strippedBody.replace(/\s/g, '').length > 10) {
+              reason = 'hex';
+            }
 
             // Wenn Grund gefunden: Antwort posten + Kommentar löschen
             if (reason) {
@@ -73,7 +82,9 @@ jobs:
                 duplicate: `❌ Hey @${username} — du hast bereits einen Eintrag im Guestbook. Pro Person ist nur ein Eintrag erlaubt.`,
                 too_long:  `❌ Hey @${username} — dein Kommentar ist leider zu lang (max. 500 Zeichen). Bitte fass dich etwas kürzer!`,
                 binary:    `❌ Hey @${username} — Binärcode ist zwar kreativ, aber kein gültiger Guestbook-Eintrag. 😄`,
-                morse:     `❌ Hey @${username} — Morsecode ist auch nett, aber bitte schreib normal. 😄`,
+                morse:     `❌ Hey @${username} — Morsecode ist nett, aber bitte schreib normal. 😄`,
+                base64: `❌ Hey @${username} — bitte schreib normal und nicht in Base64. 😄`,
+                hex:    `❌ Hey @${username} — Hex-Code ist kein gültiger Guestbook-Eintrag. 😄`,
               };
 
               await github.rest.issues.createComment({
