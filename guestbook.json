@@ -1,13 +1,5 @@
 [
   {
-    "username": "Soluk-GBS",
-    "message": "Hello, im from switzerland",
-    "date": "02.06.2026, 19:21:53",
-    "location": "Switzerland",
-    "lat": 46.7985624,
-    "lon": 8.2319736
-  },
-  {
     "username": "deonramadani",
     "message": "Hello Guys, i just wanted to say that our dear friend FGDHC1 is doing so-called \"Arbeitszeitbetrug\" while working!",
     "date": "09.06.2026, 11:37:45",
@@ -22,5 +14,13 @@
     "location": null,
     "lat": null,
     "lon": null
+  },
+  {
+    "username": "Soluk-GBS",
+    "message": "Fabian is doing massive Abeitszeitbetrug, but you know what else is massive?",
+    "date": "11.06.2026, 08:43:48",
+    "location": "Switzerland",
+    "lat": 46.7985624,
+    "lon": 8.2319736
   }
 ]
