@@ -50,18 +50,15 @@ jobs:
               reason = 'duplicate';
             }
 
-            // 2. Length check (max 500 Zeichen)
-            if (!reason && body.length > 500) {
-              reason = 'too_long';
-            }
-
-            // 3. Gibberish check: Binär oder Morse
             const binaryPattern = /^[\s01]+$/;
             const morsePattern = /^[\s.\-\/]+$/;
             const base64Pattern = /^[A-Za-z0-9+/]+=*$/;
             const hexPattern = /^[0-9a-fA-F\s]+$/;
             const strippedBody = body.trim();
 
+            if (!reason && body.length > 500) {
+              reason = 'too_long';
+            }
             if (!reason && binaryPattern.test(strippedBody) && strippedBody.length > 5) {
               reason = 'binary';
             }
@@ -71,12 +68,9 @@ jobs:
             if (!reason && base64Pattern.test(strippedBody.replace(/\s/g, '')) && strippedBody.length > 20) {
               reason = 'base64';
             }
-
             if (!reason && hexPattern.test(strippedBody) && strippedBody.replace(/\s/g, '').length > 10) {
               reason = 'hex';
             }
-
-            // Wenn Grund gefunden: Antwort posten + Kommentar löschen
             if (reason) {
               const messages = {
                 duplicate: `❌ Hey @${username} — du hast bereits einen Eintrag im Guestbook. Pro Person ist nur ein Eintrag erlaubt.`,
