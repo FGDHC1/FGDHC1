@@ -9,9 +9,100 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  moderate:
+    name: Moderate comment
+    if: ${{ github.event.issue.title == 'Guestbook' && github.event.action != 'deleted' }}
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: read
+    outputs:
+      allowed: ${{ steps.check.outputs.allowed }}
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Check comment
+        id: check
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+
+            const username = context.payload.comment.user.login;
+            const body = context.payload.comment.body || '';
+            const commentId = context.payload.comment.id;
+
+            let reason = null;
+
+            // 1. Duplicate check
+            let stored = [];
+            if (fs.existsSync('guestbook.json')) {
+              const raw = fs.readFileSync('guestbook.json', 'utf8').trim();
+              if (raw && raw !== '[]') {
+                try { stored = JSON.parse(raw); } catch(e) { stored = []; }
+              }
+            }
+            const alreadyExists = stored.some(e => e.username === username) && context.payload.action === 'created';
+            if (alreadyExists) {
+              reason = 'duplicate';
+            }
+
+            // 2. Length check (max 500 Zeichen)
+            if (!reason && body.length > 500) {
+              reason = 'too_long';
+            }
+
+            // 3. Gibberish check: Binär oder Morse
+            const binaryPattern = /^[\s01]+$/;
+            const morsePattern = /^[\s.\-\/]+$/;
+            const strippedBody = body.trim();
+
+            if (!reason && binaryPattern.test(strippedBody) && strippedBody.length > 5) {
+              reason = 'binary';
+            }
+            if (!reason && morsePattern.test(strippedBody) && strippedBody.length > 5) {
+              reason = 'morse';
+            }
+
+            // Wenn Grund gefunden: Antwort posten + Kommentar löschen
+            if (reason) {
+              const messages = {
+                duplicate: `❌ Hey @${username} — du hast bereits einen Eintrag im Guestbook. Pro Person ist nur ein Eintrag erlaubt.`,
+                too_long:  `❌ Hey @${username} — dein Kommentar ist leider zu lang (max. 500 Zeichen). Bitte fass dich etwas kürzer!`,
+                binary:    `❌ Hey @${username} — Binärcode ist zwar kreativ, aber kein gültiger Guestbook-Eintrag. 😄`,
+                morse:     `❌ Hey @${username} — Morsecode ist auch nett, aber bitte schreib normal. 😄`,
+              };
+
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: messages[reason],
+              });
+
+              await github.rest.issues.deleteComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: commentId,
+              });
+
+              core.setOutput('allowed', 'false');
+              console.log(`Kommentar von @${username} abgelehnt: ${reason}`);
+            } else {
+              core.setOutput('allowed', 'true');
+              console.log(`Kommentar von @${username} akzeptiert.`);
+            }
+
   update_guestbook:
     name: Update guestbook
-    if: ${{ github.event.issue.title == 'Guestbook' }}
+    needs: moderate
+    if: |
+      always() &&
+      github.event.issue.title == 'Guestbook' &&
+      (github.event.action == 'deleted' || needs.moderate.outputs.allowed == 'true')
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -36,82 +127,60 @@ jobs:
             function getFlag(location) {
               if (!location) return '';
               
-              // ISO 3166-1 Alpha-2 Code aus der Location extrahieren
-              // Zuerst: direkt 2-Buchstaben-Code am Ende oder allein
               const twoLetterMatch = location.trim().match(/\b([A-Za-z]{2})\b$/);
               
-              // Country name → ISO code mapping (alle UN-anerkannten Länder + häufige Varianten)
               const nameToCode = {
-                // A
                 'afghanistan': 'AF', 'albania': 'AL', 'algeria': 'DZ', 'andorra': 'AD',
                 'angola': 'AO', 'argentina': 'AR', 'armenia': 'AM', 'australia': 'AU',
                 'austria': 'AT', 'azerbaijan': 'AZ', 'österreich': 'AT',
-                // B
                 'bahamas': 'BS', 'bahrain': 'BH', 'bangladesh': 'BD', 'barbados': 'BB',
                 'belarus': 'BY', 'belgium': 'BE', 'belgien': 'BE', 'belize': 'BZ',
                 'benin': 'BJ', 'bhutan': 'BT', 'bolivia': 'BO', 'bosnia': 'BA',
                 'botswana': 'BW', 'brazil': 'BR', 'brasil': 'BR', 'brunei': 'BN',
                 'bulgaria': 'BG', 'burkina faso': 'BF', 'burundi': 'BI',
-                // C
                 'cambodia': 'KH', 'cameroon': 'CM', 'canada': 'CA', 'cape verde': 'CV',
                 'central african republic': 'CF', 'chad': 'TD', 'chile': 'CL',
                 'china': 'CN', 'colombia': 'CO', 'comoros': 'KM', 'congo': 'CG',
                 'costa rica': 'CR', 'croatia': 'HR', 'cuba': 'CU', 'cyprus': 'CY',
                 'czech republic': 'CZ', 'czechia': 'CZ', 'tschechien': 'CZ',
-                // D
                 'denmark': 'DK', 'dänemark': 'DK', 'djibouti': 'DJ', 'dominica': 'DM',
                 'dominican republic': 'DO',
-                // E
                 'ecuador': 'EC', 'egypt': 'EG', 'ägypten': 'EG', 'el salvador': 'SV',
                 'equatorial guinea': 'GQ', 'eritrea': 'ER', 'estonia': 'EE',
                 'eswatini': 'SZ', 'ethiopia': 'ET',
-                // F
                 'fiji': 'FJ', 'finland': 'FI', 'finnland': 'FI', 'france': 'FR',
                 'frankreich': 'FR',
-                // G
                 'gabon': 'GA', 'gambia': 'GM', 'georgia': 'GE', 'germany': 'DE',
                 'deutschland': 'DE', 'ghana': 'GH', 'greece': 'GR', 'griechenland': 'GR',
                 'grenada': 'GD', 'guatemala': 'GT', 'guinea': 'GN',
                 'guinea-bissau': 'GW', 'guyana': 'GY',
-                // H
                 'haiti': 'HT', 'honduras': 'HN', 'hungary': 'HU', 'ungarn': 'HU',
-                // I
                 'iceland': 'IS', 'island': 'IS', 'india': 'IN', 'indonesia': 'ID',
                 'iran': 'IR', 'iraq': 'IQ', 'ireland': 'IE', 'irland': 'IE',
                 'israel': 'IL', 'italy': 'IT', 'italien': 'IT', 'ivory coast': 'CI',
                 "cote d'ivoire": 'CI',
-                // J
                 'jamaica': 'JM', 'japan': 'JP', 'jordan': 'JO',
-                // K
                 'kazakhstan': 'KZ', 'kenya': 'KE', 'kiribati': 'KI', 'kuwait': 'KW',
                 'kyrgyzstan': 'KG',
-                // L
                 'laos': 'LA', 'latvia': 'LV', 'lebanon': 'LB', 'lesotho': 'LS',
                 'liberia': 'LR', 'libya': 'LY', 'liechtenstein': 'LI', 'lithuania': 'LT',
                 'luxembourg': 'LU', 'luxemburg': 'LU',
-                // M
                 'madagascar': 'MG', 'malawi': 'MW', 'malaysia': 'MY', 'maldives': 'MV',
                 'mali': 'ML', 'malta': 'MT', 'marshall islands': 'MH', 'mauritania': 'MR',
                 'mauritius': 'MU', 'mexico': 'MX', 'mexiko': 'MX', 'micronesia': 'FM',
                 'moldova': 'MD', 'monaco': 'MC', 'mongolia': 'MN', 'montenegro': 'ME',
                 'morocco': 'MA', 'marokko': 'MA', 'mozambique': 'MZ', 'myanmar': 'MM',
-                // N
                 'namibia': 'NA', 'nauru': 'NR', 'nepal': 'NP', 'netherlands': 'NL',
                 'niederlande': 'NL', 'new zealand': 'NZ', 'neuseeland': 'NZ',
                 'nicaragua': 'NI', 'niger': 'NE', 'nigeria': 'NG', 'north korea': 'KP',
                 'north macedonia': 'MK', 'norway': 'NO', 'norwegen': 'NO',
-                // O
                 'oman': 'OM',
-                // P
                 'pakistan': 'PK', 'palau': 'PW', 'palestine': 'PS', 'panama': 'PA',
                 'papua new guinea': 'PG', 'paraguay': 'PY', 'peru': 'PE',
                 'philippines': 'PH', 'poland': 'PL', 'polen': 'PL', 'portugal': 'PT',
-                // Q
                 'qatar': 'QA',
-                // R
                 'romania': 'RO', 'rumänien': 'RO', 'russia': 'RU', 'russland': 'RU',
                 'rwanda': 'RW',
-                // S
                 'saint kitts and nevis': 'KN', 'saint lucia': 'LC',
                 'saint vincent': 'VC', 'samoa': 'WS', 'san marino': 'SM',
                 'sao tome and principe': 'ST', 'saudi arabia': 'SA',
@@ -124,36 +193,28 @@ jobs:
                 'spanien': 'ES', 'sri lanka': 'LK', 'sudan': 'SD', 'suriname': 'SR',
                 'sweden': 'SE', 'schweden': 'SE', 'switzerland': 'CH', 'schweiz': 'CH',
                 'syria': 'SY',
-                // T
                 'taiwan': 'TW', 'tajikistan': 'TJ', 'tanzania': 'TZ', 'thailand': 'TH',
                 'timor-leste': 'TL', 'togo': 'TG', 'tonga': 'TO',
                 'trinidad and tobago': 'TT', 'tunisia': 'TN', 'turkey': 'TR',
                 'türkei': 'TR', 'türkiye': 'TR', 'turkmenistan': 'TM', 'tuvalu': 'TV',
-                // U
                 'uganda': 'UG', 'ukraine': 'UA', 'united arab emirates': 'AE',
                 'uae': 'AE', 'united kingdom': 'GB', 'uk': 'GB', 'england': 'GB',
                 'scotland': 'GB', 'wales': 'GB', 'united states': 'US', 'usa': 'US',
                 'uruguay': 'UY', 'uzbekistan': 'UZ',
-                // V
                 'vanuatu': 'VU', 'vatican': 'VA', 'vatikan': 'VA', 'venezuela': 'VE',
                 'vietnam': 'VN',
-                // Y
                 'yemen': 'YE',
-                // Z
                 'zambia': 'ZM', 'zimbabwe': 'ZW',
               };
             
               const loc = location.toLowerCase().trim();
             
-              // 1. Direkt im nameToCode nachschlagen (substring match)
               for (const [name, code] of Object.entries(nameToCode)) {
                 if (loc.includes(name)) return codeToFlag(code);
               }
             
-              // 2. Fallback: 2-Buchstaben ISO-Code direkt konvertieren
               if (twoLetterMatch) {
                 const code = twoLetterMatch[1].toUpperCase();
-                // Nur wenn es ein plausibler Ländercode ist (nicht "St" aus "St. Gallen" etc.)
                 if (code.match(/^[A-Z]{2}$/) && !['ST', 'DR', 'MR', 'MS'].includes(code)) {
                   return codeToFlag(code);
                 }
@@ -163,7 +224,6 @@ jobs:
             }
             
             function codeToFlag(code) {
-              // Regional Indicator Symbols: A=0x1F1E6, Z=0x1F1FF
               return [...code.toUpperCase()].map(c =>
                 String.fromCodePoint(0x1F1E6 - 65 + c.charCodeAt(0))
               ).join('');
@@ -253,7 +313,6 @@ jobs:
               return latestLine + header + rows + '\n';
             }
 
-            // Kommentare holen
             const query = `query($owner:String!, $name:String!, $issue_number:Int!) {
               repository(owner:$owner, name:$name) {
                 issue(number:$issue_number) {
@@ -280,9 +339,8 @@ jobs:
               issue_number: context.issue.number
             });
 
-            const comments = result.repository.issue.comments.nodes;
+            const comments = result.repository.issue.comments.nodes .filter(c => c.author.login !== 'github-actions[bot]');
 
-            // guestbook.json laden
             let stored = [];
             if (fs.existsSync('guestbook.json')) {
               const raw = fs.readFileSync('guestbook.json', 'utf8').trim();
@@ -293,7 +351,6 @@ jobs:
 
             const storedMap = Object.fromEntries(stored.map(e => [e.username, e]));
 
-            // Eintraege updaten
             for (const comment of comments) {
               const username = comment.author.login;
               const location = comment.author.location || null;
@@ -316,17 +373,14 @@ jobs:
               }
             }
 
-            // Geloeschte Kommentare entfernen
             const activeUsernames = new Set(comments.map(c => c.author.login));
             const entries = Object.values(storedMap).filter(e => activeUsernames.has(e.username));
 
-            // Nach Datum sortieren (neueste zuerst)
             entries.sort((a, b) => new Date(a.date) - new Date(b.date));
 
             fs.writeFileSync('guestbook.json', JSON.stringify(entries, null, 2), 'utf8');
             fs.writeFileSync('guestbook-map.svg', await generateMapSVG(entries), 'utf8');
 
-            // README updaten
             let readme = fs.readFileSync('README.md', 'utf8');
             const newContent = generateTable(entries);
             readme = readme.replace(
