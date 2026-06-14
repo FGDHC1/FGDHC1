@@ -38,14 +38,14 @@ jobs:
             let reason = null;
 
             // 1. Duplicate check
-            let stored = [];
-            if (fs.existsSync('guestbook.json')) {
-              const raw = fs.readFileSync('guestbook.json', 'utf8').trim();
-              if (raw && raw !== '[]') {
-                try { stored = JSON.parse(raw); } catch(e) { stored = []; }
-              }
-            }
-            const alreadyExists = stored.some(e => e.username === username) && context.payload.action === 'created';
+            const { data: issueComments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              per_page: 100,
+            });
+            const alreadyExists = context.payload.action === 'created' &&
+              issueComments.some(c => c.user.login === username && c.id !== commentId);
             if (alreadyExists) {
               reason = 'duplicate';
             }
@@ -326,6 +326,7 @@ jobs:
                       author {
                         login
                         url
+                        __typename
                         ... on User {
                           location
                         }
@@ -344,7 +345,7 @@ jobs:
               issue_number: context.issue.number
             });
 
-            const comments = result.repository.issue.comments.nodes .filter(c => c.author.login !== 'github-actions[bot]');
+            const comments = result.repository.issue.comments.nodes .filter(c => c.author.__typename !== 'Bot');
 
             let stored = [];
             if (fs.existsSync('guestbook.json')) {
