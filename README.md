@@ -103,7 +103,6 @@ $ ping fgdhc.ch
 |---|---|---|---|
 | <img src="https://avatars.githubusercontent.com/deonramadani" width="60" height="60"/> | [@deonramadani](https://github.com/deonramadani) 🇨🇭 | 09.06.2026, 11:37:45 | Hello Guys, i just wanted to say that our dear friend FGDHC1 is doing so-called "Arbeitszeitbetrug" while working! |
 | <img src="https://avatars.githubusercontent.com/EpicAlpaca55" width="60" height="60"/> | [@EpicAlpaca55](https://github.com/EpicAlpaca55) | 09.06.2026, 17:53:05 | Well, besides stealing the idea for a guest book from a friend and not having very good taste in music, he is alright. It also seems like he committed "Arbeitszeitbetrug". |
-| <img src="https://avatars.githubusercontent.com/Soluk-GBS" width="60" height="60"/> | [@Soluk-GBS](https://github.com/Soluk-GBS) 🇨🇭 | 14.06.2026, 19:31:10 | Hey, Fabian ist ein Cooler Typ aber er betrügt seine Firma mit Arbeitszeitbetrug Sein Dad heisst = Joachim oder so |
 | <img src="https://avatars.githubusercontent.com/github-actions" width="60" height="60"/> | [@github-actions](https://github.com/github-actions) | 11.06.2026, 15:43:26 | ❌ Hey @Soluk-GBS — bitte schreib normal und nicht in Base64. 😄 |
 <!-- /Guestbook -->
 
