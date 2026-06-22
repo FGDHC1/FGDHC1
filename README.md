@@ -103,6 +103,7 @@ $ ping fgdhc.ch
 |---|---|---|---|
 | <img src="https://avatars.githubusercontent.com/deonramadani" width="60" height="60"/> | [@deonramadani](https://github.com/deonramadani) 🇨🇭 | 09.06.2026, 11:37:45 | Hello Guys, i just wanted to say that our dear friend FGDHC1 is doing so-called "Arbeitszeitbetrug" while working! |
 | <img src="https://avatars.githubusercontent.com/EpicAlpaca55" width="60" height="60"/> | [@EpicAlpaca55](https://github.com/EpicAlpaca55) | 09.06.2026, 17:53:05 | Well, besides stealing the idea for a guest book from a friend and not having very good taste in music, he is alright. It also seems like he committed "Arbeitszeitbetrug". |
+| <img src="https://avatars.githubusercontent.com/Shrooxie" width="60" height="60"/> | [@Shrooxie](https://github.com/Shrooxie) | 22.06.2026, 12:39:31 | Hi, I am the original inspiration for the guestbook :D Despite the not really tasteful music taste and his weird obsession with Farming Simulator he is a really cool guy (and a BIG nerd). Anyway he also likes to commit so-called "Arbeitszeitbetrug" on the daily |
 <!-- /Guestbook -->
 
 
