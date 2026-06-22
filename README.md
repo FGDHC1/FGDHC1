@@ -105,7 +105,7 @@ $ ping fgdhc.ch
 | <img src="https://avatars.githubusercontent.com/EpicAlpaca55" width="60" height="60"/> | [@EpicAlpaca55](https://github.com/EpicAlpaca55) | 09.06.2026, 17:53:05 | Well, besides stealing the idea for a guest book from a friend and not having very good taste in music, he is alright. It also seems like he committed "Arbeitszeitbetrug". |
 | <img src="https://avatars.githubusercontent.com/Shrooxie" width="60" height="60"/> | [@Shrooxie](https://github.com/Shrooxie) | 22.06.2026, 12:39:31 | Hi, I am the original inspiration for the guestbook :D Despite the not really tasteful music taste and his weird obsession with Farming Simulator he is a really cool guy (and a BIG nerd). Anyway he also likes to commit so-called "Arbeitszeitbetrug" on the daily |
 <!-- /Guestbook -->
-
+Thanks to [@Shrooxie](https://github.com/Shrooxie) for the Inspiration
 
 [![Add an Entry](https://img.shields.io/badge/✍️_Add_an_Entry_to_the-Guestbook-238636?style=for-the-badge)](https://github.com/FGDHC1/FGDHC1/issues/1)
 
