@@ -55,13 +55,15 @@ $ ping fgdhc.ch
 ### OS & Platform
 ![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
 ![macOS](https://img.shields.io/badge/macOS-000000?style=for-the-badge&logo=apple&logoColor=white)
-![CachyOS](https://img.shields.io/badge/CachyOS-0068FF?style=for-the-badge&logo=archlinux&logoColor=white)
+![CachyOS](https://img.shields.io/badge/CachyOS-40bfbf?style=for-the-badge&logo=cachyos&logoColor=white)
 ![Windows](https://custom-icon-badges.demolab.com/badge/Windows-0078D6?style=for-the-badge&logo=windows11&logoColor=white)
 ![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)
 ![Ubuntu Server](https://img.shields.io/badge/Ubuntu_Server-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)
 ![Kali](https://img.shields.io/badge/Kali_Linux-268BEE?style=for-the-badge&logo=kali-linux&logoColor=white)
 ![Raspberry Pi](https://img.shields.io/badge/Raspberry%20Pi-A22846?style=for-the-badge&logo=Raspberry%20Pi&logoColor=white)
 ![rEFInd](https://img.shields.io/badge/rEFInd-444444?style=for-the-badge&logoColor=white)
+![Homeassistant](https://img.shields.io/badge/Home_Assistant-FCC624?style=for-the-badge&logo=homeassistant&logoColor=black)
+
 
 ### Tools & Infrastructure
 ![Docker](https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white)
@@ -73,8 +75,11 @@ $ ping fgdhc.ch
 ![Jellyfin](https://img.shields.io/badge/Jellyfin-00A4DC?style=for-the-badge&logo=jellyfin&logoColor=white)
 ![Sonarr](https://img.shields.io/badge/Sonarr-35C5F4?style=for-the-badge&logo=sonarr&logoColor=white)
 ![Radarr](https://img.shields.io/badge/Radarr-FFC230?style=for-the-badge&logo=radarr&logoColor=black)
-![Prowlarr](https://img.shields.io/badge/Prowlarr-FF6600?style=for-the-badge&logo=prowlarr&logoColor=white)
 ![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
+
+
+
+
 
 ### Languages
 ![Python](https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=black)
@@ -105,7 +110,7 @@ $ ping fgdhc.ch
 | <img src="https://avatars.githubusercontent.com/EpicAlpaca55" width="60" height="60"/> | [@EpicAlpaca55](https://github.com/EpicAlpaca55) | 09.06.2026, 17:53:05 | Well, besides stealing the idea for a guest book from a friend and not having very good taste in music, he is alright. It also seems like he committed "Arbeitszeitbetrug". |
 | <img src="https://avatars.githubusercontent.com/Shrooxie" width="60" height="60"/> | [@Shrooxie](https://github.com/Shrooxie) | 22.06.2026, 12:39:31 | Hi, I am the original inspiration for the guestbook :D Despite the not really tasteful music taste and his weird obsession with Farming Simulator he is a really cool guy (and a BIG nerd). Anyway he also likes to commit so-called "Arbeitszeitbetrug" on the daily |
 <!-- /Guestbook -->
-Thanks to [@Shrooxie](https://github.com/Shrooxie) for the Inspiration
+Thanks to [@Shrooxie](https://github.com/Shrooxie) for the inspiration
 
 [![Add an Entry](https://img.shields.io/badge/✍️_Add_an_Entry_to_the-Guestbook-238636?style=for-the-badge)](https://github.com/FGDHC1/FGDHC1/issues/1)
 
@@ -135,14 +140,10 @@ Thanks to [@Shrooxie](https://github.com/Shrooxie) for the Inspiration
 ## `~/stats`
 <div align="center">
 
-<img src="https://github-readme-stats.vercel.app/api?username=FGDHC1&show_icons=true&theme=tokyonight&hide_border=true&include_all_commits=true&count_private=true&rank_icon=github&card_width=450" height="180"/>
-<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=FGDHC1&layout=compact&theme=tokyonight&hide_border=true&langs_count=8&card_width=320" height="180"/>
-
-<br/><br/>
 
 <img src="https://streak-stats.demolab.com?user=FGDHC1&theme=tokyonight&hide_border=true" width="60%"/>
 
-<br/><br/>
+---
 
 [![Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=FGDHC1&theme=tokyo-night&hide_border=true&area=true&custom_title=Contribution%20Activity)](https://github.com/FGDHC1)
 
