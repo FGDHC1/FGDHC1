@@ -22,17 +22,8 @@ const FONT = "'Segoe UI', Ubuntu, 'Helvetica Neue', Arial, sans-serif";
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 // ---------- 1. Daten holen ----------
-async function fetchDays() {
-  const query = `
-    query($login: String!) {
-      user(login: $login) {
-        contributionsCollection {
-          contributionCalendar {
-            weeks { contributionDays { date contributionCount } }
-          }
-        }
-      }
-    }`;
+// Die API liefert pro Abfrage maximal 1 Jahr. Darum fragen wir jedes Jahr einzeln ab.
+async function gql(query, variables) {
   const res = await fetch('https://api.github.com/graphql', {
     method: 'POST',
     headers: {
@@ -40,15 +31,51 @@ async function fetchDays() {
       'Content-Type': 'application/json',
       'User-Agent': 'fgdhc-stats',
     },
-    body: JSON.stringify({ query, variables: { login: USER } }),
+    body: JSON.stringify({ query, variables }),
   });
   if (!res.ok) throw new Error(`GitHub API antwortete mit ${res.status}`);
   const json = await res.json();
   if (json.errors) throw new Error(JSON.stringify(json.errors));
-  const weeks = json.data.user.contributionsCollection.contributionCalendar.weeks;
-  return weeks
-    .flatMap((w) => w.contributionDays)
-    .map((d) => ({ date: d.date, count: d.contributionCount }));
+  return json.data;
+}
+
+async function fetchDays() {
+  // 1. In welchen Jahren gibt es Contributions?
+  const yearsData = await gql(
+    `query($login: String!) {
+       user(login: $login) { contributionsCollection { contributionYears } }
+     }`,
+    { login: USER }
+  );
+  const years = yearsData.user.contributionsCollection.contributionYears;
+
+  // 2. Jedes Jahr einzeln holen
+  const byDate = new Map();
+  const nowIso = new Date().toISOString();
+  for (const year of years) {
+    const from = `${year}-01-01T00:00:00Z`;
+    const yearEnd = `${year}-12-31T23:59:59Z`;
+    const to = yearEnd < nowIso ? yearEnd : nowIso;
+    const data = await gql(
+      `query($login: String!, $from: DateTime!, $to: DateTime!) {
+         user(login: $login) {
+           contributionsCollection(from: $from, to: $to) {
+             contributionCalendar {
+               weeks { contributionDays { date contributionCount } }
+             }
+           }
+         }
+       }`,
+      { login: USER, from, to }
+    );
+    const weeks = data.user.contributionsCollection.contributionCalendar.weeks;
+    for (const day of weeks.flatMap((w) => w.contributionDays)) {
+      // Jahresgrenzen koennen doppelt vorkommen: den hoeheren Wert behalten
+      const old = byDate.get(day.date) || 0;
+      byDate.set(day.date, Math.max(old, day.contributionCount));
+    }
+  }
+  return [...byDate.entries()].map(([date, count]) => ({ date, count }));
 }
 
 // ---------- 2. Kennzahlen berechnen ----------
@@ -96,11 +123,12 @@ function computeStats(rawDays, todayStr) {
 
 // ---------- 3. SVGs bauen ----------
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
-const fmtDay = (iso) => {
-  const [, m, d] = iso.split('-').map(Number);
-  return `${d} ${MONTHS[m - 1]}`;
+const fmtDay = (iso, withYear = false) => {
+  const [y, m, d] = iso.split('-').map(Number);
+  return withYear ? `${d} ${MONTHS[m - 1]} ${y}` : `${d} ${MONTHS[m - 1]}`;
 };
-const fmtRange = (a, b) => (a ? `${fmtDay(a)} – ${fmtDay(b)}` : '–');
+const fmtRange = (a, b, withYear = false) =>
+  a ? `${fmtDay(a, withYear)} – ${fmtDay(b, withYear)}` : '–';
 
 function renderStreakSvg(s) {
   const col = (cx, num, label, sub, labelColor, numColor) => `
@@ -112,7 +140,7 @@ function renderStreakSvg(s) {
   <title>Contribution streaks</title>
   <rect width="600" height="130" rx="10" fill="${C.bg}"/>
   <line x1="200" y1="28" x2="200" y2="102" stroke="${C.grid}"/>
-  <line x1="400" y1="28" x2="400" y2="102" stroke="${C.grid}"/>${col(100, s.total, 'Total Contributions', 'Last 12 months', C.text, C.blue)}${col(300, s.current.len, 'Current Streak', fmtRange(s.current.start, s.current.end), C.orange, C.orange)}${col(500, s.longest.len, 'Longest Streak', fmtRange(s.longest.start, s.longest.end), C.text, C.blue)}
+  <line x1="400" y1="28" x2="400" y2="102" stroke="${C.grid}"/>${col(100, s.total, 'Total Contributions', 'All time', C.text, C.blue)}${col(300, s.current.len, 'Current Streak', fmtRange(s.current.start, s.current.end), C.orange, C.orange)}${col(500, s.longest.len, 'Longest Streak', fmtRange(s.longest.start, s.longest.end, true), C.text, C.blue)}
 </svg>
 `;
 }
@@ -178,9 +206,8 @@ async function main() {
   const todayStr = new Date().toISOString().slice(0, 10);
   const stats = computeStats(days, todayStr);
 
-  fs.mkdirSync('assets', { recursive: true });
-  fs.writeFileSync('assets/stats-streak.svg', renderStreakSvg(stats));
-  fs.writeFileSync('assets/stats-activity.svg', renderActivitySvg(stats));
+  fs.writeFileSync('stats-streak.svg', renderStreakSvg(stats));
+  fs.writeFileSync('stats-activity.svg', renderActivitySvg(stats));
   console.log(
     `OK: total=${stats.total}, current=${stats.current.len}, longest=${stats.longest.len}`
   );
