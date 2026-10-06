@@ -143,11 +143,11 @@ Thanks to [@Shrooxie](https://github.com/Shrooxie) for the inspiration
 <div align="center">
 
 
-<img src="https://streak-stats.demolab.com?user=FGDHC1&theme=tokyonight&hide_border=true" width="60%"/>
+<img src="stats-streak.svg" width="60%"/>
 
 ---
 
-[![Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=FGDHC1&theme=tokyo-night&hide_border=true&area=true&custom_title=Contribution%20Activity)](https://github.com/FGDHC1)
+<img src="stats-activity.svg" width="60%"/>
 
 </div>
 
