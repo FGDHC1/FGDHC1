@@ -143,11 +143,11 @@ Thanks to [@Shrooxie](https://github.com/Shrooxie) for the inspiration
 <div align="center">
 
 
-<img src="stats-streak.svg" width="60%"/>
+<img src="assets/stats-streak.svg" width="60%"/>
 
 ---
 
-<img src="stats-activity.svg" width="60%"/>
+<img src="assets/stats-activity.svg" width="100%"/>
 
 </div>
 
