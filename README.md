@@ -113,6 +113,8 @@ $ ping fgdhc.ch
 Thanks to [@Shrooxie](https://github.com/Shrooxie) for the inspiration
 
 [![Add an Entry](https://img.shields.io/badge/✍️_Add_an_Entry_to_the-Guestbook-238636?style=for-the-badge)](https://github.com/FGDHC1/FGDHC1/issues/1)
+> 📍 **Want a pin on the map?** Set a location in your GitHub profile (Edit profile → Location) before you sign. A city or country is enough.  
+> **Already signed?** Set it now and edit your comment once to refresh the map.   
 
 ### Guestbook Map
 
