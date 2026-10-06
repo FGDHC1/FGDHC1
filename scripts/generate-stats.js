@@ -178,8 +178,9 @@ async function main() {
   const todayStr = new Date().toISOString().slice(0, 10);
   const stats = computeStats(days, todayStr);
 
-  fs.writeFileSync('stats-streak.svg', renderStreakSvg(stats));
-  fs.writeFileSync('stats-activity.svg', renderActivitySvg(stats));
+  fs.mkdirSync('assets', { recursive: true });
+  fs.writeFileSync('assets/stats-streak.svg', renderStreakSvg(stats));
+  fs.writeFileSync('assets/stats-activity.svg', renderActivitySvg(stats));
   console.log(
     `OK: total=${stats.total}, current=${stats.current.len}, longest=${stats.longest.len}`
   );
